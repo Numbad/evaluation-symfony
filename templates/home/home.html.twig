@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1 class="ui header" >Dernier article Publié</h1>
+
+    <div class="ui page dimmer">
+        <div class="content">
+            <h1 class="ui header" style="color: white">Bienvenu et bonne visite ! <i class="ui smile icon"></i></h1>
+
+        </div>
+    </div>
+
+    <div class="ui segments">
+        <div class="ui segment">
+            <p>{{ articleId.title }}</p>
+        </div>
+        <div class="ui secondary segment">
+            <p>{{ articleId.content }}</p>
+            <div class="ui circular segment"  style="float: right">
+                Date de publication
+                <div class="ui right aligned segment">
+                    {{articleId.date.format('d-m-y à H:i') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

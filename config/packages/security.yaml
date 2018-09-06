@@ -1,0 +1,40 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
+
+    providers:
+        mon_provider:
+            memory:
+                users:
+                    admin:
+                        password: $2y$12$9O2uCw3/WvTBUW4AXJ0Xe.9LqB0MtrLiCO32vF5Pt9oM75KY7Kzke
+                        roles: 'ROLE_ADMIN'
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            logout: true
+
+            form_login:
+                login_path: login
+                check_path: login
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+         - { path: ^/article/create, roles: ROLE_ADMIN }
+         - { path: ^/article/edit, roles: ROLE_ADMIN }
+         #- { path: ^/, roles: ROLE_USER }

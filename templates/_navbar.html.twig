@@ -1,0 +1,9 @@
+{% set route = app.request.attributes.get('_route') %}
+<div class="ui pointing menu">
+    <a class="{{ route == 'homepage' ? 'active' }} item " href="{{ path('homepage') }}">
+        Accueil
+    </a>
+    <a class="{{ route == 'article_list' ? 'active' }} item" href="{{ path('article_list') }}">
+        Voir tous les articles
+    </a>
+</div>

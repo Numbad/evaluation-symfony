@@ -1,0 +1,81 @@
+
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <table class="ui compact celled definition table">
+        <thead>
+        <tr>
+            {% if is_granted('ROLE_ADMIN') %}
+            <th>Publication</th>
+            <th>ID</th>
+            {% endif %}
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date de publication</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <tr>
+                    <td class="collapsing">
+                        <div class="ui toggle checkbox">
+                            {% if article.isPublished %}
+
+                                <input type="checkbox" disabled="disabled" id="{{ article.id }}"  onchange="if($('#{{article.id}}')[0].checked){ {% set articles = articles|merge({'article.isPublished': 1}) %}; } else{ {% set articles = articles|merge({'article.isPublished': 0}) %}; }" checked>
+
+                            {% else %}
+
+                                <input type="checkbox" disabled="disabled" id="{{ article.id }}">
+
+                            {% endif %}
+                            <label></label>
+                        </div>
+                    </td>
+                    <td>{{ article.id }}</td>
+                    <td>{{ article.title|slice(0, 20) }} {% if article.title|length > 20 %} ...{% endif %}</td>
+                    <td>{{ article.content|slice(0, 100) }} {% if article.content|length > 100 %} ...{% endif %}</td>
+                    <td>{{ article.date == null ? "Pas Publié" : article.date.format('d-m-y à H:i') }}</td>
+                    <td>
+                        <a class="circular ui icon button" href="http://localhost:8000/article/edit/{{article.id}}">
+                            <i class="icon edit"></i>
+                        </a>
+                        <a class="circular ui icon button" href="http://localhost:8000/article/delete/{{article.id}}">
+                            <i class="icon trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                {% if article.isPublished %}
+                    <tr>
+                        <td>{{ article.title|slice(0, 20) }} {% if article.title|length > 20 %} ...{% endif %}</td>
+                        <td>{{ article.content|slice(0, 100) }} {% if article.content|length > 100 %} ...{% endif %}</td>
+                        <td>{{article.date.format('d-m-y à H:i') }}</td>
+                        <td>
+                            <a class="ui primary button" href="http://localhost:8000/article/show/{{article.id}}">
+                                Lire
+                            </a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if is_granted('ROLE_ADMIN') %}
+        <tfoot class="full-width">
+        <tr>
+            <th></th>
+            <th colspan="5">
+                <a class="ui right floated small primary labeled icon button" href="http://localhost:8000/article/create">
+                    <i class="newspaper icon"></i> Ajouter un article
+                </a>
+                <div class="ui small button" onclick="{{ articles[0].isPublished }}">
+                    valider
+                </div>
+            </th>
+        </tr>
+        </tfoot>
+        {% endif %}
+    </table>
+{% endblock %}

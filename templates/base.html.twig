@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %} Bloc d'évaluation {% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('semantic/dist/semantic.min.css') }}">
+        {% endblock %}
+
+    </head>
+    <body>
+    {{ include('_navbar.html.twig') }}
+    <div class="ui segment">
+        <p></p>
+        {% block body %}{% endblock %}
+    </div>
+    {% block javascripts %}
+        <script
+                src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+        <script src="{{ asset('semantic/dist/semantic.min.js')}}"></script>
+        <script type="text/javascript">
+                $('.ui.checkbox')
+                    .checkbox();
+                $('.dimmer').dimmer('show');
+        </script>
+    {% endblock %}
+    </body>
+</html>

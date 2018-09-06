@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if isEdit == '0' %}
+        <h1 class="ui header">Nouvel article</h1>
+    {% else %}
+        <h1 class="ui header">Modification de l'article {{ id }}</h1>
+    {% endif %}
+    {{ form_start(form) }}
+    <div class="ui form">
+        <div class="field">
+            <label>Titre de l'article</label>
+        </div>
+        <div>
+            <div class="field ui input focus">
+
+                {{ form_widget(form.title) }}
+            </div>
+        </div>
+        <div class="field">
+            <label>Contenu de l'article</label>
+            {{ form_widget(form.content) }}
+        </div>
+        <div class="field">
+            <div class="ui toggle checkbox">
+                {{ form_widget(form.isPublished) }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="ui buttons">
+                <button class="ui button">Annuler</button>
+                <div class="or"></div>
+                {{ form_widget(form.Valider) }}
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
